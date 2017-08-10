@@ -138,35 +138,6 @@
 
     <build>
         <plugins>
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
-                <executions>
-                    <execution>
-                        <id>create-empty-directory</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <mkdir dir="${basedir}/target/indigo/resources/system.properties" />
-                                <mkdir dir="${basedir}/target/indigo/lib/exe" />
-                                <mkdir dir="${basedir}/target/indigo/lib/jar" />
-                                <mkdir dir="${basedir}/target/indigo/lib64" />
-                                <mkdir dir="${basedir}/target/indigo/module-info" />
-                                <mkdir dir="${basedir}/target/indigo/target" />
-                                <copy file="${basedir}/target/${project.artifactId}-${project.version}.jar" tofile="${basedir}/target/indigo/target/indigo.jar" />
-                                <copy file="${basedir}/target/classes/kepler-messages.properties" todir="${basedir}/target/indigo/resources" />
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -175,63 +146,7 @@
                     <excludeArtifactIds>ptolemy</excludeArtifactIds>
                     <outputDirectory>${basedir}/../lib/jar/</outputDirectory>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>pl.psnc.indigo</groupId>
-                                    <artifactId>indigo-fg-api</artifactId>
-                                    <version>${indigoclient.version}</version>
-                                    <type>jar</type>
-                                    <includes>messages.properties</includes>
-                                    <outputDirectory>${basedir}/target/indigo/resources/</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
-
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/indigo/src</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/src/main/java</directory>
-                                    <includes>
-                                        <include>/**/*</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
         </plugins>
     </build>
 </project>
