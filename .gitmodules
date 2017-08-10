@@ -1,0 +1,3 @@
+[submodule "indigokepler"]
+	path = indigokepler
+	url = https://github.com/indigo-dc/indigokepler
