@@ -1,6 +1,0 @@
-[submodule "indigokepler"]
-	path = indigokepler
-	url = https://github.com/indigo-dc/indigokepler
-[submodule "indigoclient"]
-	path = indigoclient
-	url = git@github.com:indigo-dc/indigoclient.git
