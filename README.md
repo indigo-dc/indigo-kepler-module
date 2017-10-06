@@ -13,16 +13,6 @@ A module for Kepler scientific workflow system supporting INDIGO-DataCloud (http
 $ cd build-area/
 $ ant get -Dmodule=indigo-kepler-module.git
 ```
-* Download git submodules:
-```sh
-$ cd ../indigo-kepler-module.git/
-$ git submodule update --init --recursive
-```
-* Compile the module:
-```sh
-$ cd ../build-area/
-$ ant compile
-```
 * Run Kepler
 ```sh
 $ ant run
