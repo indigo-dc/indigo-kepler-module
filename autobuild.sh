@@ -2,30 +2,27 @@
 branch=${1:-master}
 maindir=$(readlink -f $(dirname $0))
 
-tmpdir=$(mktemp --directory)
 gitdir=$(mktemp --directory)
+git clone\
+    --branch "${branch}"\
+    --single-branch\
+    https://github.com/indigo-dc/indigo-parent "${gitdir}/indigo-parent"
+cd "${gitdir}/indigo-parent"
+git submodule update --init
 
+tmpdir=$(mktemp --directory)
 cd "${tmpdir}"
 mkdir module-info
 mkdir resources
 mkdir src
 
-git clone\
-    --branch "${branch}"\
-    --single-branch\
-    https://github.com/indigo-dc/indigoclient "${gitdir}/indigoclient"
-git clone\
-    --branch "${branch}"\
-    --single-branch\
-    https://github.com/indigo-dc/indigokepler "${gitdir}/indigokepler"
-
 rsync --archive\
-    "${gitdir}/indigoclient/src/main/resources/"\
-    "${gitdir}/indigokepler/src/main/resources/"\
+    "${gitdir}/indigo-parent/indigoclient/src/main/resources/"\
+    "${gitdir}/indigo-parent/indigokepler/src/main/resources/"\
     resources/
 rsync --archive\
-    "${gitdir}/indigoclient/src/main/java/"\
-    "${gitdir}/indigokepler/src/main/java/"\
+    "${gitdir}/indigo-parent/indigoclient/src/main/java/"\
+    "${gitdir}/indigo-parent/indigokepler/src/main/java/"\
     src/
 
 cat << EOF > module-info/pom.xml
@@ -37,19 +34,17 @@ cat << EOF > module-info/pom.xml
     <version>${branch#v}</version>
     <packaging>jar</packaging>
 
-    <prerequisites>
-        <maven>3.0</maven>
-    </prerequisites>
-
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <batik.version>1.7</batik.version> <!-- 1.7 is required by Kepler -->
-        <jackson.version>2.8.6</jackson.version>
+      <batik.version>1.7</batik.version> <!-- required by Kepler -->
+      <jackson.version>2.9.7</jackson.version>
+      <powermock.version>1.7.4</powermock.version>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <testcase.groups>pl.psnc.indigo.fg.api.restful.category.UnitTests</testcase.groups>
+      <xml-apis.version>1.3.04</xml-apis.version>
     </properties>
 
     <dependencies>
-$("${maindir}/pom-parser.py" "${gitdir}/indigoclient/pom.xml")
-$("${maindir}/pom-parser.py" "${gitdir}/indigokepler/pom.xml")
+$("${maindir}/pom-parser.py" "${gitdir}/indigo-parent/pom.xml")
     </dependencies>
 
     <build>
