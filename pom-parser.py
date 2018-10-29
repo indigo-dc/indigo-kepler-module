@@ -10,7 +10,8 @@ if __name__ == '__main__':
     ET.register_namespace('', 'http://maven.apache.org/POM/4.0.0')
     tree = ET.parse(sys.argv[1])
     root = tree.getroot()
-    dependencies = root.find('{http://maven.apache.org/POM/4.0.0}dependencies')
+    management = root.find('{http://maven.apache.org/POM/4.0.0}dependencyManagement')
+    dependencies = management.find('{http://maven.apache.org/POM/4.0.0}dependencies')
 
     for dependency in dependencies.findall('{http://maven.apache.org/POM/4.0.0}dependency'):
         groupId = dependency.find('{http://maven.apache.org/POM/4.0.0}groupId')
