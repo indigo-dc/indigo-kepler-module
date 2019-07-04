@@ -36,7 +36,7 @@ cat << EOF > module-info/pom.xml
 
     <properties>
       <batik.version>1.7</batik.version> <!-- required by Kepler -->
-      <jackson.version>2.9.7</jackson.version>
+      <jackson.version>2.9.9</jackson.version>
       <powermock.version>1.7.4</powermock.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <testcase.groups>pl.psnc.indigo.fg.api.restful.category.UnitTests</testcase.groups>
